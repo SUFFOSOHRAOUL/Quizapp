@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'question.dart';
 
 void main() {
   runApp(QuizApp());
@@ -32,16 +33,13 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
    List<Icon> scoreKeeper = [];
-  List<String> question =[
-
-    'you lead a cow up the stairs but nit down the stairs',
-    'Approximately one quarter of human bnesa are the feets',
-    'A slug\'s blood is green'
-  ];
-  List<bool> answer =[
-    false,true,true,
-  ];
-
+  
+  
+   List<Question> questionBank = [
+    Question('you lead a cow up the stairs but nit down the stairs', false),
+    Question('Approximately one quarter of human bnesa are the feets', true),
+    Question('A slug\'s blood is green',  true),
+   ];
   int questionNumber = 0;
   Widget build(BuildContext context) {
     return Column(
@@ -53,7 +51,7 @@ class _QuizPageState extends State<QuizPage> {
           child: Padding(padding: EdgeInsets.all(10.0),
           child: Center(
             child: Text(
-              question[questionNumber],
+              questionBank[questionNumber].questionText,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 25.0,
@@ -78,7 +76,7 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 setState(() {
-                  bool correctAnswer =answer[questionNumber];
+                  bool correctAnswer =questionBank[questionNumber].answerText;
                   if(correctAnswer==true){
                     print('good answer');
                   }
@@ -113,7 +111,7 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked false.
-                 bool correctAnswer =answer[questionNumber];
+                 bool correctAnswer =questionBank[questionNumber].answerText;
                   if(correctAnswer==false){
                     print('good answer');
                   }
