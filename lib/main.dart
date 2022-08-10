@@ -31,26 +31,18 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
-   List<Icon> scoreKeeper = [
-     Icon(
-            Icons.check,
-            color: Colors.green,
-            ),
-            Icon(
-            Icons.close,
-            color: Colors.red,
-            ),
-            Icon(
-            Icons.check,
-            color: Colors.green,
-            ),
-            Icon(
-            Icons.close,
-            color: Colors.red,
-            ),
+   List<Icon> scoreKeeper = [];
+  List<String> question =[
 
+    'you lead a cow up the stairs but nit down the stairs',
+    'Approximately one quarter of human bnesa are the feets',
+    'A slug\'s blood is green'
   ];
-  @override
+  List<bool> answer =[
+    false,true,true,
+  ];
+
+  int questionNumber = 0;
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -61,7 +53,7 @@ class _QuizPageState extends State<QuizPage> {
           child: Padding(padding: EdgeInsets.all(10.0),
           child: Center(
             child: Text(
-              'this is where the question will go',
+              question[questionNumber],
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 25.0,
@@ -86,17 +78,25 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 setState(() {
-                  scoreKeeper.add(
-                    Icon(
-            Icons.check,
-            color: Colors.green,
+                  bool correctAnswer =answer[questionNumber];
+                  if(correctAnswer==true){
+                    print('good answer');
+                  }
+                  else{
+                    print('wrong answer');
+                  }
+                  
+                questionNumber++;
+                  },
+                  
+                );
+                   },
+                  ),
+                ),
+              
             ),
-                  );
-                });
-              },
-            ),
-          ),
-        ),
+          
+        
         Expanded(
           child: Padding(
             padding: EdgeInsets.all(15.0),
@@ -113,6 +113,16 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked false.
+                 bool correctAnswer =answer[questionNumber];
+                  if(correctAnswer==false){
+                    print('good answer');
+                  }
+                  else{
+                    print('wrong answer');
+                  
+                questionNumber++;
+                  }
+                
               },
             ),
           ),
