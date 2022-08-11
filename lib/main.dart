@@ -36,9 +36,33 @@ class QuizPage extends StatefulWidget {
 class _QuizPageState extends State<QuizPage> {
    List<Icon> scoreKeeper = [];
   
-  
-   
-  int questionNumber = 0;
+  void checkAnswer(bool userDefindAnswer){
+     
+                 bool correctAnswer =quizBrian.getAnswer();
+                 setState(() {
+                  if(userDefindAnswer == correctAnswer){
+
+                    scoreKeeper.add(Icon(
+                      color:Colors.green,
+                      Icons.check));
+                      
+                  }
+                  else{
+                    scoreKeeper.add(Icon
+                    (
+                      color:Colors.red,
+                      Icons.close));
+                    
+                  
+                
+                  }
+                  
+                     quizBrian.nextQuestion();
+                  });
+                 
+
+    
+  }
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -49,7 +73,7 @@ class _QuizPageState extends State<QuizPage> {
           child: Padding(padding: EdgeInsets.all(10.0),
           child: Center(
             child: Text(
-              quizBrian.questionBank[questionNumber].questionText,
+              quizBrian.getQuestion(),
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 25.0,
@@ -73,19 +97,9 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                setState(() {
-                  bool correctAnswer =quizBrian.questionBank[questionNumber].answerText;
-                  if(correctAnswer==true){
-                    print('good answer');
-                  }
-                  else{
-                    print('wrong answer');
-                  }
+                
+                  checkAnswer(true);
                   
-                questionNumber++;
-                  },
-                  
-                );
                    },
                   ),
                 ),
@@ -109,15 +123,10 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked false.
-                 bool correctAnswer =quizBrian.questionBank[questionNumber].answerText;
-                  if(correctAnswer==false){
-                    print('good answer');
-                  }
-                  else{
-                    print('wrong answer');
-                  
-                questionNumber++;
-                  }
+                
+                  checkAnswer(false);
+                
+                
                 
               },
             ),
