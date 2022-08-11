@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'question.dart';
+import 'quizbrian.dart';
 
+QuizBrian quizBrian = QuizBrian();
 void main() {
   runApp(QuizApp());
 }
@@ -35,11 +37,7 @@ class _QuizPageState extends State<QuizPage> {
    List<Icon> scoreKeeper = [];
   
   
-   List<Question> questionBank = [
-    Question('you lead a cow up the stairs but nit down the stairs', false),
-    Question('Approximately one quarter of human bnesa are the feets', true),
-    Question('A slug\'s blood is green',  true),
-   ];
+   
   int questionNumber = 0;
   Widget build(BuildContext context) {
     return Column(
@@ -51,7 +49,7 @@ class _QuizPageState extends State<QuizPage> {
           child: Padding(padding: EdgeInsets.all(10.0),
           child: Center(
             child: Text(
-              questionBank[questionNumber].questionText,
+              quizBrian.questionBank[questionNumber].questionText,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 25.0,
@@ -76,7 +74,7 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 setState(() {
-                  bool correctAnswer =questionBank[questionNumber].answerText;
+                  bool correctAnswer =quizBrian.questionBank[questionNumber].answerText;
                   if(correctAnswer==true){
                     print('good answer');
                   }
@@ -107,11 +105,11 @@ class _QuizPageState extends State<QuizPage> {
                 style: TextStyle(
                   fontSize: 20.0,
                   color: Colors.white,
-                ),
+                ), 
               ),
               onPressed: () {
                 //The user picked false.
-                 bool correctAnswer =questionBank[questionNumber].answerText;
+                 bool correctAnswer =quizBrian.questionBank[questionNumber].answerText;
                   if(correctAnswer==false){
                     print('good answer');
                   }
