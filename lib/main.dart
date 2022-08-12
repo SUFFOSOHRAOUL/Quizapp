@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'question.dart';
 import 'quizbrian.dart';
 
@@ -35,12 +36,14 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
    List<Icon> scoreKeeper = [];
+   int score = 0;
+   
   
   void checkAnswer(bool userDefindAnswer){
      
                  bool correctAnswer =quizBrian.getAnswer();
                  setState(() {
-                  if(userDefindAnswer == correctAnswer){
+                    if(userDefindAnswer == correctAnswer){
 
                     scoreKeeper.add(Icon(
                       color:Colors.green,
@@ -58,7 +61,37 @@ class _QuizPageState extends State<QuizPage> {
                   }
                   
                      quizBrian.nextQuestion();
-                  });
+                  
+                   if( quizBrian.isFinished() == true){
+                    Alert(
+      context: context,
+      type: AlertType.warning,
+      title: "Quiz Finished",
+      desc: "thanks for participating",
+      buttons: [
+        DialogButton(
+          child: Text(
+            "FLAT",
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+          onPressed: (){ Navigator.pop(context);
+          color: Color.fromRGBO(0, 179, 134, 1.0);
+
+          setState(() {
+            quizBrian.reset();
+            scoreKeeper.clear();
+          });
+               
+          
+          }
+        ),
+                   
+      ],
+    ).show();
+           }
+                 }
+                  
+                  );
                  
 
     
@@ -142,3 +175,4 @@ class _QuizPageState extends State<QuizPage> {
     
   }
 }
+ 

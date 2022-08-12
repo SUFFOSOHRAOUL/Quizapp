@@ -2,6 +2,7 @@ import 'question.dart';
 
 class QuizBrian{
   int _questionNumber = 0;
+  int _endOfQuiz=0;
 
 List<Question> _questionBank = [
     Question('Some cats are actually allergic to humans', true),
@@ -31,15 +32,30 @@ List<Question> _questionBank = [
         true),
 
    ];
-   void nextQuestion(){
+  void nextQuestion(){
     if(_questionNumber < _questionBank.length - 1){
       _questionNumber++;
     }
+  
    }
    String getQuestion(){
     return _questionBank[_questionNumber].questionText;
    }
    bool getAnswer(){
     return _questionBank[_questionNumber].answerText;
+   }
+   bool isFinished(){
+        bool _endOfQuiz = false;
+    if(_questionNumber==_questionBank.length - 1){
+      _endOfQuiz = true;
+     
+    }
+    return _endOfQuiz;
+   }
+   void reset(){
+    if(_questionNumber==_questionBank.length - 1){
+      _questionNumber=0;
+    }
+    
    }
 }
